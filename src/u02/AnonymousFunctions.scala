@@ -1,6 +1,6 @@
 package u02
 
-object AnonymousFunctions extends App {
+object AnonymousFunctions{
 
   // first-class, anonymous functions (lambdas) with various syntax
   val f1 = (x: Int, y: Int) => x + y
@@ -37,5 +37,20 @@ object AnonymousFunctions extends App {
     (f => (i => f(f(i))))
 
   println(l(_+1)(10)) // 12, see currying next..
+ // (x : Int, y: String) =>
 
+  val parity: Int => String = {
+    case x if x%2 == 0 => "Even"
+    case _ => "Odd"
+  }
+
+  def parityMethod (x :Int): String = x match {
+    case x if x%2 == 0 => "Even"
+    case _ => "Odd"
+  }
+
+  val neg: (String => Boolean) => (String => Boolean) = pred => string => !pred(string)
+
+  def negMethod : (String => Boolean) => (String => Boolean) = pred => string => !pred(string)
+  def negGenerics[A] (pred: A => Boolean): A => Boolean = string => !pred(string)
 }
