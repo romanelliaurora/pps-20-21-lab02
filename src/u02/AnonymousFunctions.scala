@@ -53,4 +53,38 @@ object AnonymousFunctions{
 
   def negMethod : (String => Boolean) => (String => Boolean) = pred => string => !pred(string)
   def negGenerics[A] (pred: A => Boolean): A => Boolean = string => !pred(string)
+
+  val  isOrdered= (x:Int, y:Int, z:Int) =>  (x<=y && y<=z)
+  def  isOrderedMethod= (x:Int, y:Int, z:Int) =>  (x<=y && y<=z)
+  val  curriedIsOrdered: Int => Int => Int => Boolean = x => y => z => (x<=y && y<=z)
+  def  curriedIsOrderedMethod (x:Int)( y:Int)( z:Int) : Boolean = (x<=y && y<=z)
+
+  def compose(f: Int => Int, g: Int => Int): Int => Int = x=> f(g(x))
+
+  def composeGenerics[A] (f: A => A, g: A => A): A => A = x=> f(g(x))
+
+  def composeFullGenerics[A,B,C](f: B => C, g: A => B): A => C = x=> f(g(x))
+
+  def fib(n: Int): Int ={
+    var first = 0
+    var second = 0
+    @annotation.tailrec
+    def _fib(n: Int, acc: Int): Int = n match {
+
+      case 0 | 1 => acc
+      case _ => {
+        first = second
+        second = acc
+        _fib(n - 1,first+second )
+      }
+    }
+    _fib(n, 1)
+  }
+
+  def fibNoTail (n: Int): Int = n match {
+    case 0=>0
+    case 1=>1
+    case _=> fibNoTail(n-1)+fibNoTail(n-2)
+  }
+
 }
