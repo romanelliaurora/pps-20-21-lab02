@@ -1,11 +1,10 @@
-package u02
+package u02.execution
 
-import org.junit.jupiter.api.Assertions._
+import org.junit.jupiter.api.Assertions.{assertEquals, assertFalse, assertTrue}
 import org.junit.jupiter.api.Test
-import u02.AnonymousFunctions._
+import u02.execution.UtilityFunctions.{curriedIsOrdered, curriedIsOrderedMethod, isOrdered, isOrderedMethod, neg, negGenerics, negMethod, parity, parityMethod}
 
-class AnonymousFunctionTest {
-
+class UtilityTest {
 
   @Test def testParity(){
     assertEquals("Even", parity(4))
@@ -54,17 +53,5 @@ class AnonymousFunctionTest {
     val minTenOrdered: Int => Int => Boolean = curriedIsOrderedMethod(10)
     assertTrue(minTenOrdered(15)(25) )
     assertFalse(minTenOrdered(7)(3) )
-  }
-
-
-  @Test def testCompose(): Unit ={
-    assertEquals(9, compose(_-1,_*2)(5)  )
-    assertEquals("Ciao a tutti", composeGenerics[String](_+" tutti",_+" a")("Ciao")  )
-    assertFalse(composeFullGenerics[String, Int, Boolean](_<5,_.length())("Contare")  )
-  }
-
-  @Test def testFib(): Unit ={
-    assertEquals(3, fib(4) )
-    assertEquals(1346269, fib(31) )
   }
 }
